@@ -65,3 +65,15 @@ int surnameLength = lastName.Length;
 
 System.Console.WriteLine($"Length of surname: {surnameLength}");
 
+//Part 2: The Numbers
+
+Random rng = new Random();
+
+int studentID = rng.Next(100000, 1000000);
+
+System.Console.WriteLine($"\nStudent ID: {studentID}");
+
+int lockerNumber = rng.Next(1, 501);
+
+System.Console.WriteLine($"Locker: {lockerNumber}");
+
