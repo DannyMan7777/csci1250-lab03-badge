@@ -1,32 +1,28 @@
-﻿
-
-//Part 1: The Name
+﻿//Part 1: The Name
 
 //Initializing strings defined inside the while loops.
-using System.Security.Cryptography.X509Certificates;
-
 string fullName = "";
 string badgeName = "";
 string confirmation = "";
 
-#nullable disable //Because I anatehmatize all these presumptuous little sallow and jaundiced underscrawls INCESSANTLY SCREAMING AT ME ABOUT POTENTIAL NULL VALUES YEAH WHAT IF I NULLIFY YOU HOW YOU LIKE THEM APPLES?
-while (true) //Part 1 employs a while loop to allow confirmation that the student entered their name correctly.
+#nullable disable //Because I anathematize all these presumptuous little sallow and jaundiced underscrawls and their null warnings.
+while (true) //Here, I employ a while loop to confirm that the student entered their name correctly.
 {
     System.Console.WriteLine("Please provide your full name:");
     fullName = Console.ReadLine();
     fullName = fullName.Trim();
 
-    badgeName = fullName.ToUpper();
+    badgeName = fullName.ToUpper(); //From here on out, I use badgeName, which serves as the primary result of Part 1, rather than
+                                    //fullName, which is only used to catch the input.
 
-    while (true) //A (y/n) input handles the confirmation; the if creates some robustness in the case of any unexpected
-                 //(string-compliant) inputs.
+    while (true) //A (y/n) input handles the confirmation.
     {
         System.Console.WriteLine($"\n{badgeName}");
         System.Console.WriteLine("Is this correct? (y/n)");
         confirmation = Console.ReadLine();
         confirmation = confirmation.ToLower();
 
-        if (confirmation == "y" || confirmation == "n")
+        if (confirmation == "y" || confirmation == "n") //This catches inputs besides (y/n).
         {
             break;
         }
@@ -58,10 +54,24 @@ username = username.Remove(1, spacePosition);
 
 System.Console.WriteLine($"Username: {username}");
 
+//Alternatively, I could use two variables (firstName and lastName).
+string firstName = badgeName.Substring(0, spacePosition);
 string lastName = badgeName.Substring(spacePosition + 1);
+
+username = firstName[0] + lastName;
+username = username.ToLower();
+
+System.Console.WriteLine($"Username: {username}");
+
 char firstInitial = badgeName[0];
-char lastInitial = lastName[0];
+char lastInitial = badgeName[spacePosition + 1];
 string initials = $"{firstInitial}.{lastInitial}.";
+
+System.Console.WriteLine($"Initials: {initials}");
+
+//badgeName[spacePosition + 1] achieves the same thing that lastName[0] does.
+lastInitial = lastName[0];
+initials = $"{firstInitial}.{lastInitial}.";
 
 System.Console.WriteLine($"Initials: {initials}");
 
@@ -74,10 +84,12 @@ System.Console.WriteLine($"Length of surname: {surnameLength}");
 Random rng = new Random();
 
 int studentID = rng.Next(100000, 1000000);
+int checkDigit = studentID % 9;
+string badgeID = studentID.ToString() + "-" + checkDigit.ToString();
 
 System.Console.WriteLine($"\nStudent ID: {studentID}");
 
-int lockerNumber = rng.Next(1, 501);
+string lockerNumber = Convert.ToString(rng.Next(1, 501));
 
 System.Console.WriteLine($"Locker: {lockerNumber}");
 
@@ -110,8 +122,27 @@ double distanceRounded = Math.Round(distance, 2);
 System.Console.WriteLine($"\nDistance from your dormitory to your classroom: {distanceRounded}ft");
 
 double walkSeconds = distance / walkSpeed;
-double walkTime = walkSeconds / 60;
-TimeSpan walkTimeSpan = TimeSpan.FromMinutes(walkTime);
+double walkMinutes = walkSeconds / 60;
+TimeSpan walkTimeSpan = TimeSpan.FromMinutes(walkMinutes);
 
 System.Console.WriteLine("\nWalking time from your dormitory to your classroom (mm:ss): " + walkTimeSpan.ToString(@"mm\:ss"));
 
+//Equivalently, walking time can simply be displayed in plain English.
+walkSeconds = Math.Round(walkSeconds, 0);
+string intWalkMinutes = Convert.ToString((int)walkSeconds / 60);
+string intWalkSeconds = Convert.ToString((int)walkSeconds % 60);
+
+System.Console.WriteLine($"\nWalking time from your dormitory to your classroom: {intWalkMinutes} min {intWalkSeconds} sec");
+
+//Part 4: The Badge
+
+string badgeBar = new string('=', 34);
+System.Console.WriteLine(badgeBar);
+System.Console.WriteLine(new string("ETSU STUDENT BADGE").PadLeft(26));
+System.Console.WriteLine(badgeBar);
+System.Console.WriteLine(new string("NAME").PadRight(10) + badgeName);
+System.Console.WriteLine(new string("USERNAME").PadRight(10) + username);
+System.Console.WriteLine(new string("ID").PadRight(10) + badgeID);
+System.Console.WriteLine(new string("LOCKER").PadRight(10) + lockerNumber);
+System.Console.WriteLine(new string("WALK").PadRight(10) + intWalkMinutes + " min " + intWalkSeconds + " sec"); //Plain english makes more sense for a badge than TimeSpan format.
+System.Console.WriteLine(badgeBar);
