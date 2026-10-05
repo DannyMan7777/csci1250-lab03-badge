@@ -1,4 +1,15 @@
-﻿//Part 1: The Name
+﻿/*
+ ==============================================================================
+ * Name: Daniel McKinney
+ * Course: CSCI 1250, Section 002
+ * Assignment: Lab 03, The Badge Office
+ * Date: September 30, 2026
+ * Description: Builds a student badge from a name, two random assignments,
+ *              and the walking distance to a first class.
+ ==============================================================================
+ */
+
+//Part 1: The Name
 
 //Initializing strings defined inside the while loops.
 string fullName = "";
